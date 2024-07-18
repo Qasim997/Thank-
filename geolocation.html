@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Geolocation Capture</title>
+    <script>
+        function sendLocation() {
+            if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(function(position) {
+                    var latitude = position.coords.latitude;
+                    var longitude = position.coords.longitude;
+                    var identifier = new URLSearchParams(window.location.search).get('identifier');
+                    
+                    // Redirect to a thank you page with location data as query parameters
+                    window.location.href = `thankyou.html?latitude=${latitude}&longitude=${longitude}&identifier=${identifier}`;
+                });
+            } else {
+                document.getElementById("status").innerText = "Geolocation is not supported by this browser.";
+            }
+        }
+        window.onload = sendLocation;
+    </script>
+</head>
+<body>
+    <h1>Sending Your Location...</h1>
+    <p id="status">Please wait.</p>
+</body>
+</html>

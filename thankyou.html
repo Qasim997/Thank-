@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Thank You</title>
+    <script>
+        function parseUrlParams() {
+            var params = new URLSearchParams(window.location.search);
+            var latitude = params.get('latitude');
+            var longitude = params.get('longitude');
+            var identifier = params.get('identifier');
+            
+            document.getElementById('locationData').innerText = `Latitude: ${latitude}, Longitude: ${longitude}, Identifier: ${identifier}`;
+            
+            // Save to SharePoint using Power Automate redirect
+            var form = document.createElement('form');
+            form.method = 'POST';
+            form.action = 'YOUR_POWER_AUTOMATE_FLOW_URL';
+            
+            var latInput = document.createElement('input');
+            latInput.type = 'hidden';
+            latInput.name = 'latitude';
+            latInput.value = latitude;
+            form.appendChild(latInput);
+            
+            var longInput = document.createElement('input');
+            longInput.type = 'hidden';
+            longInput.name = 'longitude';
+            longInput.value = longitude;
+            form.appendChild(longInput);
+            
+            var idInput = document.createElement('input');
+            idInput.type = 'hidden';
+            idInput.name = 'identifier';
+            idInput.value = identifier;
+            form.appendChild(idInput);
+            
+            document.body.appendChild(form);
+            form.submit();
+        }
+        window.onload = parseUrlParams;
+    </script>
+</head>
+<body>
+    <h1>Thank You</h1>
+    <p id="locationData"></p>
+</body>
+</html>
